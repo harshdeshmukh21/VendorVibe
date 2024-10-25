@@ -10,7 +10,9 @@ import {
   Settings,
   Package,
   HeartHandshake,
+  Blend,
   Truck,
+  ArrowRightLeft,
   ChartNoAxesCombined,
 } from "lucide-react";
 import {
@@ -57,25 +59,6 @@ const Dashboard = () => {
           <div className="text-m font-medium text-gray-800 ml-2">
             {/* {user ? `Hello, ${user.displayName}` : "Hello, Guest"} */}
           </div>
-          {/* <div className="relative ml-auto flex-1 md:grow-0"></div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="overflow-hidden rounded-full"
-              >
-                <Users2 className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-white">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator className="bg-gray-200" />
-              <DropdownMenuItem className="text-gray-700">
-                Logout
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu> */}
         </header>
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
@@ -97,7 +80,7 @@ const Dashboard = () => {
                   <CardDescription className="text-gray-600 font-semibold">
                     Delivery
                   </CardDescription>
-                  <CardTitle className="text-4xl text-gray-900 p-2">
+                  <CardTitle className="text-4xl text-gray-900 p-1">
                     <Package size={48} />
                   </CardTitle>
                 </CardHeader>
@@ -106,21 +89,15 @@ const Dashboard = () => {
                     +25% from last week
                   </div>
                 </CardContent>
-                <CardFooter>
-                  {/* <Progress
-                    value={20}
-                    aria-label="12% increase"
-                    className="bg-gray-200 [&>div]:bg-slate-900"
-                  /> */}
-                </CardFooter>
+                <CardFooter></CardFooter>
               </Card>
               <Card className="bg-gray-50 border-gray-200 rounded-md">
                 <CardHeader className="pb-2">
                   <CardDescription className="text-gray-600 font-semibold">
-                    Smart Match
+                    Share Inventory
                   </CardDescription>
-                  <CardTitle className="text-4xl text-gray-900 p-2">
-                    <HeartHandshake size={48} />
+                  <CardTitle className="text-4xl text-gray-900 items-center p-1">
+                    <Blend size={48} />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -128,13 +105,7 @@ const Dashboard = () => {
                     Instantly match with the best vendors.
                   </div>
                 </CardContent>
-                <CardFooter>
-                  {/* <Progress
-                    value={20}
-                    aria-label="12% increase"
-                    className="bg-gray-200 [&>div]:bg-slate-900"
-                  /> */}
-                </CardFooter>
+                <CardFooter></CardFooter>
               </Card>
             </div>
             <Tabs defaultValue="week">
@@ -232,7 +203,6 @@ const Dashboard = () => {
                           </TableCell>
                           <TableCell className="text-right">$250.00</TableCell>
                         </TableRow>
-                        {/* Add more rows as needed */}
                       </TableBody>
                     </Table>
                   </CardContent>
@@ -242,11 +212,76 @@ const Dashboard = () => {
             </Tabs>
           </div>
           <div>
-            <Card className="overflow-hidden bg-gray-50 border-gray-200 rounded-md h-[88vh]">
+            <Card className="overflow-hidden bg-gray-50 border-gray-200 rounded-md h-[66vh]">
               <CardHeader className="flex flex-row items-start border-gray-100">
-                <div className="grid gap-0.5">
+                <div className="grid gap-0.5 w-full">
                   <CardTitle className="text-gray-900 text-[30px]">
                     Community
+                  </CardTitle>
+
+                  <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[24vh]">
+                    <CardHeader className="pb-2">
+                      <CardDescription className="text-gray-600 font-semibold">
+                        Smart Match
+                      </CardDescription>
+                      <CardTitle className="text-4xl text-gray-900 p-2">
+                        <HeartHandshake size={48} />
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-xs text-gray-600">
+                        Instantly match with the best vendors which will fulfill
+                        your requirements.
+                      </div>
+                    </CardContent>
+                    <CardFooter></CardFooter>
+                  </Card>
+
+                  <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[24vh]">
+                    <CardHeader className="pb-2">
+                      <CardDescription className="text-gray-600 font-semibold">
+                        Active Shares
+                      </CardDescription>
+                      <CardTitle className="text-4xl text-gray-900 p-2">
+                        <ArrowRightLeft size={48} />
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-xs text-gray-600">
+                        Instantly match with the best vendors which will fulfill
+                        your requirements.
+                      </div>
+                    </CardContent>
+                    <CardFooter></CardFooter>
+                  </Card>
+                  {/* <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[24vh]">
+                    <CardHeader className="pb-2">
+                      <CardDescription className="text-gray-600 font-semibold">
+                        Active Shares
+                      </CardDescription>
+                      <CardTitle className="text-4xl text-gray-900 p-2">
+                        <ArrowRightLeft size={48} />
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-xs text-gray-600">
+                        Instantly match with the best vendors which will fulfill
+                        your requirements.
+                      </div>
+                    </CardContent>
+                    <CardFooter></CardFooter>
+                  </Card> */}
+                </div>
+              </CardHeader>
+              <CardContent className="p-6">
+                {/* Add your recent updates content here */}
+              </CardContent>
+            </Card>
+            <Card className="overflow-hidden bg-white rounded-md h-[22vh] mt-8 border-none shadow-none">
+              <CardHeader className="flex flex-row items-start">
+                <div className="grid gap-0.5 w-full">
+                  <CardTitle className="text-gray-900 text-[30px]">
+                    Ask AI
                   </CardTitle>
                 </div>
               </CardHeader>
