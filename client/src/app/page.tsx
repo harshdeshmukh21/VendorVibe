@@ -19,7 +19,7 @@ const Home: React.FC = () => {
           <Link href="/login">
             <Button variant="default">Login</Button>
           </Link>
-          <Link href="/Signup">
+          <Link href="/signup">
             <Button variant="default">Signup</Button>
           </Link>
         </div>
