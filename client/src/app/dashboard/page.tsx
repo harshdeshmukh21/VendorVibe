@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ListFilter, Users2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import TopNavbar from "@/components/navbar";
 
 import {
   Calendar,
@@ -58,12 +59,13 @@ const Dashboard = () => {
       <div className="flex min-h-screen w-full">
         <AppSidebar />
         <div className="flex-1 flex flex-col">
-          <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-white px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <header className="sticky top-0 z-30 flex h-20 items-center gap-4 border-b bg-white px-4 sm:static sm:h-16 sm:border-0 sm:bg-transparent sm:px-6">
             <SidebarTrigger />
-            <div className="text-m font-medium text-gray-800 ml-2">
-              {/* {user ? `Hello, ${user.displayName}` : "Hello, Guest"} */}
+            <div className="text-lg font-semibold text-gray-800 ml-2">
             </div>
+            <TopNavbar />
           </header>
+
           <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
             <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
               <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
