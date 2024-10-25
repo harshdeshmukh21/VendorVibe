@@ -51,6 +51,7 @@ import {
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Input } from "@/components/ui/input";
+import { CarouselDemo } from "@/components/ui/Graphcarousel";
 
 const Dashboard = () => {
   return (
@@ -169,47 +170,7 @@ const Dashboard = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <Table>
-                        <TableHeader>
-                          <TableRow className="border-gray-200">
-                            <TableHead>Customer</TableHead>
-                            <TableHead className="hidden sm:table-cell">
-                              Type
-                            </TableHead>
-                            <TableHead className="hidden sm:table-cell">
-                              Status
-                            </TableHead>
-                            <TableHead className="hidden md:table-cell">
-                              Date
-                            </TableHead>
-                            <TableHead className="text-right">Amount</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          <TableRow className="border-gray-200">
-                            <TableCell>
-                              <div className="font-medium">Liam Johnson</div>
-                              <div className="hidden text-sm text-gray-600 md:inline">
-                                liam@example.com
-                              </div>
-                            </TableCell>
-                            <TableCell className="hidden sm:table-cell">
-                              Sale
-                            </TableCell>
-                            <TableCell className="hidden sm:table-cell">
-                              <Badge className="text-xs bg-green-100 text-green-800">
-                                Fulfilled
-                              </Badge>
-                            </TableCell>
-                            <TableCell className="hidden md:table-cell">
-                              2023-06-23
-                            </TableCell>
-                            <TableCell className="text-right">
-                              $250.00
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
+                      <CarouselDemo />
                     </CardContent>
                   </Card>
                 </TabsContent>
