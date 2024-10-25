@@ -22,9 +22,6 @@ const Home: React.FC = () => {
           <Link href="/Signup">
             <Button variant="default">Signup</Button>
           </Link>
-          <Link href="/inventory">
-            <Button variant="default">Inventory</Button>
-          </Link>
         </div>
       </div>
     </div>
