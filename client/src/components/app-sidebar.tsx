@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Calendar,
   Home,
@@ -25,27 +26,27 @@ import {
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
     title: "Inventory",
-    url: "#",
+    url: "/inventory",
     icon: Package,
   },
   {
     title: "Community",
-    url: "#",
+    url: "/community",
     icon: HeartHandshake,
   },
   {
     title: "Delivery",
-    url: "#",
+    url: "/delivery",
     icon: Truck,
   },
   {
     title: "Analytics",
-    url: "#",
+    url: "/analytics",
     icon: ChartNoAxesCombined,
   },
 ];
@@ -61,10 +62,10 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url} className="flex items-center gap-2">
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
