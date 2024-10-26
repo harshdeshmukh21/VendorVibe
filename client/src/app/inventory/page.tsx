@@ -17,6 +17,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+
+import {
   Table,
   TableBody,
   TableCell,
@@ -65,6 +76,30 @@ const Inventory = () => {
             <div className="flex items-center justify-between mb-4">
               <div className="text-2xl font-bold text-gray-900">All Events</div>
               <div className="flex items-center gap-2">
+                {/* Drawer Trigger Button */}
+                <Drawer>
+                  <DrawerTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8 gap-1">
+                      Open
+                    </Button>
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    <DrawerHeader>
+                      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+                      <DrawerDescription>
+                        This action cannot be undone.
+                      </DrawerDescription>
+                    </DrawerHeader>
+                    <DrawerFooter>
+                      <Button>Submit</Button>
+                      <DrawerClose>
+                        <Button variant="outline">Cancel</Button>
+                      </DrawerClose>
+                    </DrawerFooter>
+                  </DrawerContent>
+                </Drawer>
+
+                {/* Filter Dropdown Menu */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="h-8 gap-1">
