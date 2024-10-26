@@ -1,7 +1,9 @@
+"use client";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ListFilter, Users2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import FixedChatbot from "@/components/ui/AIText";
 import {
   Calendar,
   Home,
@@ -204,9 +206,8 @@ const Dashboard = () => {
             </div>
           </main>
         </div>
-
       </div>
-      <AIText />
+      <FixedChatbot inventoryId="your-inventory-id"></FixedChatbot>
     </SidebarProvider>
   );
 };

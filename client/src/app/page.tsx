@@ -16,17 +16,11 @@ const Home: React.FC = () => {
           Collaborate, Code, Create: Your Workspace Awaits!
         </h1>
         <div className="flex space-x-4">
-          <Link href="/dashboard">
+          <Link href="/login">
             <Button variant="default">Login</Button>
           </Link>
           <Link href="/Signup">
             <Button variant="default">Signup</Button>
-          </Link>
-          <Link href="/pooling">
-            <Button variant="default">pooling</Button>
-          </Link>
-          <Link href="/Matching">
-            <Button variant="default">Matching</Button>
           </Link>
         </div>
       </div>
