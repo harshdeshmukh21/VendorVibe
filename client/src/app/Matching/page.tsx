@@ -1,38 +1,6 @@
-import { ChevronLeft, ChevronRight, ListFilter, Users2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+"use client";
+
 import { Button } from "@/components/ui/button";
-import {
-  Calendar,
-  Home,
-  Inbox,
-  Search,
-  Settings,
-  Package,
-  HeartHandshake,
-  Blend,
-  Truck,
-  ArrowRightLeft,
-  ChartNoAxesCombined,
-  Sparkles,
-  MessageSquareText,
-} from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -43,10 +11,61 @@ import {
 } from "@/components/ui/table";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { Input } from "@/components/ui/input";
-import { CarouselDemo } from "@/components/ui/Graphcarousel";
-import TopNavbar from "@/components/navbar"; // Ensure this component is also cleaned up
+import TopNavbar from "@/components/navbar";
+import { FormforZone } from "@/components/ui/forzone";
 
+// Testable ModifiedTableDemo component
+const ModifiedTableDemo = () => {
+  const Requests = [
+    {
+      shop_ID: "1",
+      InventoryName: "shop1",
+      PricePerUnit: "Rs.500",
+      Quantity: "50",
+    },
+    {
+      shop_ID: "3",
+      InventoryName: "shop3",
+      PricePerUnit: "Rs.550",
+      Quantity: "75",
+    },
+  ];
+
+  return (
+    <div>
+      <h2 className="text-lg font-bold mb-4">Shop Inventory List</h2>{" "}
+      {/* Visible header for verification */}
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Shop_ID</TableHead>
+            <TableHead>Inventory name</TableHead>
+            <TableHead>Price per unit</TableHead>
+            <TableHead>Quantity</TableHead>
+            <TableHead>Action</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {Requests.map((shop) => (
+            <TableRow key={shop.shop_ID}>
+              <TableCell className="font-medium">{shop.shop_ID}</TableCell>
+              <TableCell>{shop.InventoryName}</TableCell>
+              <TableCell>{shop.PricePerUnit}</TableCell>
+              <TableCell>{shop.Quantity}</TableCell>
+              <TableCell>
+                <Button variant="outline" size="sm">
+                  Create Request
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
+};
+
+// Dashboard layout with explicit component structure for debugging
 const Dashboard = () => {
   return (
     <SidebarProvider className="bg-gray-50">
@@ -54,143 +73,19 @@ const Dashboard = () => {
         <AppSidebar />
         <div className="flex-1 flex flex-col">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-white px-4 sm:px-6">
-            <div className="flex items-center gap-4">
-              {/* Your sidebar trigger or other elements */}
-            </div>
-            <TopNavbar /> {/* Ensure this doesn't include filtering options */}
+            <TopNavbar />
           </header>
-          <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3 mt-[25px]">
-            <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-              <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
-                <Card className="sm:col-span-2 bg-gray-50 border-gray-200 rounded-md">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-gray-900 text-[30px]">
-                      Inventory
-                    </CardTitle>
-                    <CardDescription className="max-w-lg leading-relaxed text-gray-600">
-                      Introducing Our Dynamic Orders Dashboard for Seamless
-                      Management and Insightful Analysis.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardFooter></CardFooter>
-                </Card>
-                <Card className="bg-gray-50 border-gray-200 rounded-md">
-                  <CardHeader className="pb-2">
-                    <CardDescription className="text-gray-600 font-semibold">
-                      Delivery
-                    </CardDescription>
-                    <CardTitle className="text-4xl text-gray-900 p-1">
-                      <Package size={48} />
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-xs text-gray-600">
-                      +25% from last week
-                    </div>
-                  </CardContent>
-                  <CardFooter></CardFooter>
-                </Card>
-                <Card className="bg-gray-50 border-gray-200 rounded-md">
-                  <CardHeader className="pb-2">
-                    <CardDescription className="text-gray-600 font-semibold">
-                      Share Inventory
-                    </CardDescription>
-                    <CardTitle className="text-4xl text-gray-900 items-center p-1">
-                      <Blend size={48} />
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-xs text-gray-600">
-                      Instantly match with the best vendors.
-                    </div>
-                  </CardContent>
-                  <CardFooter></CardFooter>
-                </Card>
-              </div>
-              <Card className="bg-gray-50 border-gray-200 rounded-md h-[55vh] overflow-scroll">
-                <CardHeader className="px-7">
-                  <CardTitle className="text-gray-900 text-[30px]">
-                    Analytics
-                  </CardTitle>
-                  <CardDescription className="text-gray-600">
-                    List of our most active planters.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <CarouselDemo />
-                </CardContent>
-              </Card>
+          <main className="flex-1 p-6 space-y-6">
+            <div className="border p-4 bg-gray-100">
+              <h2>Form Zone</h2>
             </div>
-            <div>
-              <Card className="overflow-hidden bg-gray-50 border-gray-200 rounded-md h-[92.5vh]">
-                <CardHeader className="flex flex-row items-start border-gray-100">
-                  <div className="grid gap-0.5 w-full">
-                    <CardTitle className="text-gray-900 text-[30px]">
-                      Community
-                    </CardTitle>
-
-                    <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[24vh]">
-                      <CardHeader className="pb-2">
-                        <CardDescription className="text-gray-600 font-semibold">
-                          Smart Match
-                        </CardDescription>
-                        <CardTitle className="text-4xl text-gray-900 p-2">
-                          <HeartHandshake size={48} />
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-xs text-gray-600">
-                          Instantly match with the best vendors which will
-                          fulfill your requirements.
-                        </div>
-                      </CardContent>
-                      <CardFooter></CardFooter>
-                    </Card>
-
-                    <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[24vh]">
-                      <CardHeader className="pb-2">
-                        <CardDescription className="text-gray-600 font-semibold">
-                          Active Shares
-                        </CardDescription>
-                        <CardTitle className="text-4xl text-gray-900 p-2">
-                          <ArrowRightLeft size={48} />
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-xs text-gray-600">
-                          Instantly match with the best vendors which will
-                          fulfill your requirements.
-                        </div>
-                      </CardContent>
-                      <CardFooter></CardFooter>
-                    </Card>
-                    <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[24vh]">
-                      <CardHeader className="pb-2">
-                        <CardDescription className="text-gray-600 font-semibold">
-                          Messages
-                        </CardDescription>
-                        <CardTitle className="text-4xl text-gray-900 p-2">
-                          <MessageSquareText size={48} />
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-xs text-gray-600">
-                          Instantly match with the best vendors which will
-                          fulfill your requirements.
-                        </div>
-                      </CardContent>
-                      <CardFooter></CardFooter>
-                    </Card>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-6">
-                  {/* Add your recent updates content here */}
-                </CardContent>
-              </Card>
-            </div>
+            <section className="rounded-lg border bg-white p-4">
+              <ModifiedTableDemo /> {/* Should render the table and title */}
+            </section>
           </main>
         </div>
       </div>
+      <FormforZone />
     </SidebarProvider>
   );
 };

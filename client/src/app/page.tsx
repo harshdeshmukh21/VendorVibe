@@ -25,6 +25,9 @@ const Home: React.FC = () => {
           <Link href="/pooling">
             <Button variant="default">pooling</Button>
           </Link>
+          <Link href="/Matching">
+            <Button variant="default">Matching</Button>
+          </Link>
         </div>
       </div>
     </div>
