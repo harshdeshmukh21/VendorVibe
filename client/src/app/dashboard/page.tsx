@@ -46,6 +46,7 @@ import TopNavbar from "@/components/navbar";
 import { BarComponent } from "@/components/ui/barchart";
 import { LineComponent } from "@/components/ui/Linechart";
 import { PieComponent } from "@/components/ui/Piechart";
+import AIText from "@/components/ui/AIText";
 
 const Dashboard = () => {
   return (
@@ -203,7 +204,9 @@ const Dashboard = () => {
             </div>
           </main>
         </div>
+
       </div>
+      <AIText />
     </SidebarProvider>
   );
 };
