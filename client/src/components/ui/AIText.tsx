@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import MDEditor from "@uiw/react-md-editor";
 import { supabase } from "../../../lib/SupabaseClient";
+import { useUser } from "@/app/context/UserContext";
 
 const API_KEY = "AIzaSyAAO4E-Bqpu4Nr8UHwnmn7bAVxK6odumEE";
 const genAI = new GoogleGenerativeAI(API_KEY);
@@ -41,7 +42,7 @@ const FixedChatbot = ({ inventoryId }: { inventoryId: string }) => {
           product_name: nameMatch[1].trim(),
           description: descMatch[1].trim(),
           listing_price: parseInt(priceMatch[1]),
-          inventory_id: inventoryId,
+        inventory_id: "d7f072f1-7655-42ee-90eb-085cd55b6030",
         };
       }
       return null;

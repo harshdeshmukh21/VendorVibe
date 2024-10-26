@@ -207,7 +207,7 @@ const Dashboard = () => {
           </main>
         </div>
       </div>
-      <FixedChatbot inventoryId="your-inventory-id"></FixedChatbot>
+      <FixedChatbot inventoryId="d7f072f1-7655-42ee-90eb-085cd55b6030"></FixedChatbot>
     </SidebarProvider>
   );
 };

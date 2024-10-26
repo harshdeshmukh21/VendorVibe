@@ -29,7 +29,7 @@ export default function Chat({ shopId1, shopId2 }: ChatProps) {
                 console.error("Error fetching chat history:", chatError);
             } else {
                 const messages = chatData.length > 0 ? chatData[0].chat : [];
-                const formattedMessages = messages.map((msg) => ({
+                const formattedMessages = messages.map((msg: any) => ({
                     sender: shopId1,
                     message: msg,
                 }));
