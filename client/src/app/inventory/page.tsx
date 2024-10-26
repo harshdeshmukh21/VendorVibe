@@ -1,5 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
 import { ListFilter, MoreHorizontal } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -18,15 +19,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
+  DrawerContent,
 } from "@/components/ui/drawer";
-
 import {
   Table,
   TableBody,
@@ -39,26 +34,46 @@ import { AppSidebar } from "@/components/app-sidebar";
 import TopNavbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import CardWithForm from "@/components/ui/cardwform";
+import { supabase } from "../../../lib/SupabaseClient";
+import { useUser } from "@/app/context/UserContext";
+
 
 const Inventory = () => {
-  const activities = [
-    {
-      id: "1",
-      name: "Activity 1",
-      location: "Location 1",
-      participants: ["User1", "User2"],
-      description: "Description 1",
-      createdBy: "Creator1",
-    },
-    {
-      id: "2",
-      name: "Activity 2",
-      location: "Location 2",
-      participants: ["User3"],
-      description: "Description 2",
-      createdBy: "Creator2",
-    },
-  ];
+  interface Activity {
+    id: string;
+    name: string;
+    sections: string;
+    expiryDate: string;
+  }
+  const { shopId } = useUser();
+  const [activities, setActivities] = useState<Activity[]>([]);
+
+  useEffect(() => {
+    const fetchActivitiesByShopId = async () => {
+
+      const { data, error } = await supabase
+        .from("Inventory") // Make sure the table name is correct
+        .select("inventory_id, section, expiry_date")
+        .eq("shop_id", shopId); // Filtering by shop_id
+
+      if (error) {
+        console.error("Error fetching activities:", error);
+        return;
+      }
+
+      // Map data to match the `activities` structure
+      const formattedData = data.map((item) => ({
+        id: item.inventory_id, // Unique identifier
+        sections: item.section || "N/A", // Sections or a fallback
+        expiryDate: item.expiry_date || "No expiry date", // Expiry date or fallback
+      }));
+
+      setActivities(formattedData);
+    };
+
+    fetchActivitiesByShopId();
+  }, []);
 
   return (
     <SidebarProvider className="bg-gray-50">
@@ -76,7 +91,6 @@ const Inventory = () => {
             <div className="flex items-center justify-between mb-4">
               <div className="text-2xl font-bold text-gray-900">All Events</div>
               <div className="flex items-center gap-2">
-                {/* Drawer Trigger Button */}
                 <Drawer>
                   <DrawerTrigger asChild>
                     <Button variant="outline" size="sm" className="h-8 gap-1">
@@ -84,22 +98,10 @@ const Inventory = () => {
                     </Button>
                   </DrawerTrigger>
                   <DrawerContent>
-                    <DrawerHeader>
-                      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                      <DrawerDescription>
-                        This action cannot be undone.
-                      </DrawerDescription>
-                    </DrawerHeader>
-                    <DrawerFooter>
-                      <Button>Submit</Button>
-                      <DrawerClose>
-                        <Button variant="outline">Cancel</Button>
-                      </DrawerClose>
-                    </DrawerFooter>
+                    <CardWithForm />
                   </DrawerContent>
                 </Drawer>
 
-                {/* Filter Dropdown Menu */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="h-8 gap-1">
@@ -110,13 +112,9 @@ const Inventory = () => {
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Filter by</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuCheckboxItem checked>
-                      Active
-                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem checked>Active</DropdownMenuCheckboxItem>
                     <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>
-                      Archived
-                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem>Archived</DropdownMenuCheckboxItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -135,42 +133,24 @@ const Inventory = () => {
                 <Table>
                   <TableHeader>
                     <TableRow className="border-gray-200">
-                      <TableHead className="text-gray-600">Name</TableHead>
-                      <TableHead className="text-gray-600">
-                        Description
-                      </TableHead>
-                      <TableHead className="text-gray-600">Status</TableHead>
-                      <TableHead className="hidden md:table-cell text-gray-600">
-                        People Joined
-                      </TableHead>
-                      <TableHead className="hidden md:table-cell text-gray-600">
-                        Location
-                      </TableHead>
-                      <TableHead className="text-gray-600">Actions</TableHead>
+                      <TableHead className="text-gray-600">Inventory ID</TableHead>
+                      <TableHead className="text-gray-600">Title</TableHead>
+                      <TableHead className="text-gray-600">Sections</TableHead>
+                      <TableHead className="text-gray-600">Expiry Date</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {activities.map((activity) => (
                       <TableRow key={activity.id} className="border-gray-200">
                         <TableCell className="font-medium text-gray-900">
-                          {activity.name}
+                          {activity.id}
+                        </TableCell>
+
+                        <TableCell className="text-gray-600">
+                          {activity.sections}
                         </TableCell>
                         <TableCell className="text-gray-600">
-                          {activity.description}
-                        </TableCell>
-                        <TableCell>
-                          <Badge
-                            variant="secondary"
-                            className="bg-green-100 text-green-800"
-                          >
-                            Active
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell text-center text-gray-600">
-                          {activity.participants?.length || 0}
-                        </TableCell>
-                        <TableCell className="text-gray-600">
-                          {activity.location}
+                          {activity.expiryDate}
                         </TableCell>
                         <TableCell>
                           <DropdownMenu>
@@ -185,9 +165,7 @@ const Inventory = () => {
                               <DropdownMenuItem>View</DropdownMenuItem>
                               <DropdownMenuItem>Edit</DropdownMenuItem>
                               <DropdownMenuSeparator />
-                              <DropdownMenuItem className="text-red-600">
-                                Delete
-                              </DropdownMenuItem>
+                              <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </TableCell>
