@@ -74,6 +74,14 @@ const ModifiedTableDemo = () => {
   return (
     <Table>
       <TableHeader>
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold text-gray-900">
+            Inventories
+          </CardTitle>
+          <CardDescription className="text-gray-500">
+            Go through all your inventories at one place.
+          </CardDescription>
+        </CardHeader>
         <TableRow>
           <TableHead>Shop_ID</TableHead>
           <TableHead>Inventory name</TableHead>
@@ -117,9 +125,9 @@ const Dashboard = () => {
             <div className="flex w-full items-center justify-between">
               <div className="flex items-center gap-4">
                 <SidebarTrigger />
-                <div className="text-lg font-semibold text-gray-800">
+                {/* <div className="text-lg font-semibold text-gray-800">
                   Inventory Requests
-                </div>
+                </div> */}
               </div>
               <div className="flex-1 flex justify-end items-center gap-4 mx-4">
                 <TopNavbar />
@@ -127,16 +135,16 @@ const Dashboard = () => {
             </div>
           </header>
           <main className="flex-1 p-6">
-            <div className="rounded-lg border bg-white p-4">
-              <div className="flex justify-end mb-4">
-                <Button
-                  variant="default"
-                  className="bg-slate-600 hover:bg-slate-700"
-                  onClick={handleAcceptRequests}
-                >
-                  Accept requests
-                </Button>
-              </div>
+            <div className="flex justify-end mb-4">
+              <Button
+                variant="default"
+                className="bg-slate-600 hover:bg-slate-700"
+                onClick={handleAcceptRequests}
+              >
+                Accept requests
+              </Button>
+            </div>
+            <div className="rounded-lg border bg-white p-4 flex flex-row">
               <ModifiedTableDemo />
             </div>
           </main>

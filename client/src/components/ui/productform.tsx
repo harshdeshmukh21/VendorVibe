@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import * as React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { InputFile } from "./inputFile";
 import { supabase } from "../../../lib/SupabaseClient";
 
@@ -35,7 +34,11 @@ interface ProductData {
   inventory_id: string;  // Added inventory_id field
 }
 
-export function ProductWithForm() {
+interface ProductWithFormProps {
+  inventoryId: string;  // Accepting inventory ID as a prop
+}
+
+export function ProductWithForm({ inventoryId }: ProductWithFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [productData, setProductData] = useState<ProductData>({
     product_name: "",
@@ -46,7 +49,7 @@ export function ProductWithForm() {
     image_url: "",
     expiry_date: "",
     listing_price: "",
-    inventory_id: "",  // Added to initial state
+    inventory_id: inventoryId,  // Set the initial state with the passed inventory ID
   });
 
   const handleChange = (
@@ -114,7 +117,7 @@ export function ProductWithForm() {
         image_url: "",
         expiry_date: "",
         listing_price: "",
-        inventory_id: "",  // Added to reset
+        inventory_id: inventoryId,  // Reset to current inventory ID
       });
 
     } catch (error) {
@@ -129,15 +132,15 @@ export function ProductWithForm() {
   };
 
   return (
-    <Card className="w-[350px]">
+    <Card className="w-full h-1/2">
       <CardHeader>
         <CardTitle>Add Product</CardTitle>
         <CardDescription>Add a new product to the catalog</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="h-full overflow-auto"> {/* Allow scrolling if content overflows */}
         <form onSubmit={handleSubmit}>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-2.5">
+          <div className="grid grid-cols-2 gap-4"> {/* Use a grid with two columns */}
+            <div>
               <Label htmlFor="inventory_id">Inventory ID *</Label>
               <Input
                 id="inventory_id"
@@ -145,9 +148,12 @@ export function ProductWithForm() {
                 placeholder="Enter inventory ID"
                 value={productData.inventory_id}
                 onChange={handleChange}
-                required
-              />
 
+                readOnly // Make it read-only since it's set dynamically
+              />
+            </div>
+
+            <div>
               <Label htmlFor="product_name">Product Name *</Label>
               <Input
                 id="product_name"
@@ -157,7 +163,9 @@ export function ProductWithForm() {
                 onChange={handleChange}
                 required
               />
+            </div>
 
+            <div>
               <Label htmlFor="category">Category *</Label>
               <Select
                 name="category"
@@ -174,7 +182,9 @@ export function ProductWithForm() {
                   <SelectItem value="electronics">Electronics</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
 
+            <div>
               <Label htmlFor="brand">Brand Name *</Label>
               <Input
                 id="brand"
@@ -184,7 +194,9 @@ export function ProductWithForm() {
                 onChange={handleChange}
                 required
               />
+            </div>
 
+            <div>
               <Label htmlFor="unit">Unit Type *</Label>
               <Input
                 id="unit"
@@ -194,7 +206,9 @@ export function ProductWithForm() {
                 onChange={handleChange}
                 required
               />
+            </div>
 
+            <div>
               <Label htmlFor="description">Description *</Label>
               <Input
                 id="description"
@@ -204,7 +218,9 @@ export function ProductWithForm() {
                 onChange={handleChange}
                 required
               />
+            </div>
 
+            <div>
               <Label htmlFor="listing_price">Listing Price *</Label>
               <Input
                 id="listing_price"
@@ -217,7 +233,9 @@ export function ProductWithForm() {
                 step="0.01"
                 required
               />
+            </div>
 
+            <div>
               <Label htmlFor="expiry_date">Expiry Date</Label>
               <Input
                 id="expiry_date"
@@ -226,7 +244,9 @@ export function ProductWithForm() {
                 value={productData.expiry_date}
                 onChange={handleChange}
               />
+            </div>
 
+            <div className="col-span-2"> {/* Make the image input span two columns */}
               <Label>Product Image</Label>
               <InputFile />
             </div>
@@ -244,7 +264,7 @@ export function ProductWithForm() {
                 image_url: "",
                 expiry_date: "",
                 listing_price: "",
-                inventory_id: "",  // Added to reset
+                inventory_id: inventoryId,  // Reset to current inventory ID
               })}
               disabled={isSubmitting}
             >

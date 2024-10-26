@@ -9,6 +9,7 @@ import {
   HeartHandshake,
   Truck,
   ChartNoAxesCombined,
+  Blend,
 } from "lucide-react";
 
 import {
@@ -35,14 +36,14 @@ const items = [
     icon: Package,
   },
   {
-    title: "Community",
-    url: "/community",
+    title: "Smart Match",
+    url: "/smartMatch",
     icon: HeartHandshake,
   },
   {
     title: "Pooling",
     url: "/pooling",
-    icon: Truck,
+    icon: Blend,
   },
   {
     title: "Analytics",

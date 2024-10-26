@@ -14,8 +14,8 @@ import { PieComponent } from "./Piechart"; // Adjust the path to your PieCompone
 
 export function CarouselDemo() {
   return (
-    <div className="relative">
-      <Carousel className="w-full ml-20 max-w-xs">
+    <div className="">
+      <Carousel className="flex flex-row  m-20">
         <CarouselContent>
           <CarouselItem>
             <BarComponent /> {/* Add your bar chart component */}
