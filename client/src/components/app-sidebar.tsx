@@ -37,7 +37,7 @@ const items = [
   },
   {
     title: "Smart Match",
-    url: "/smartMatch",
+    url: "/Matching",
     icon: HeartHandshake,
   },
   {

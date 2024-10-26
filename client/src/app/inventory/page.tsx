@@ -17,11 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Drawer,
-  DrawerTrigger,
-  DrawerContent,
-} from "@/components/ui/drawer";
+import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import {
   Table,
   TableBody,
@@ -39,8 +35,6 @@ import { supabase } from "../../../lib/SupabaseClient";
 import { useUser } from "@/app/context/UserContext";
 import Link from "next/link";
 
-
-
 const Inventory = () => {
   interface Activity {
     id: string;
@@ -53,22 +47,20 @@ const Inventory = () => {
 
   useEffect(() => {
     const fetchActivitiesByShopId = async () => {
-
       const { data, error } = await supabase
-        .from("Inventory") // Make sure the table name is correct
+        .from("Inventory")
         .select("inventory_id, section, expiry_date")
-        .eq("shop_id", shopId); // Filtering by shop_id
+        .eq("shop_id", shopId);
 
       if (error) {
         console.error("Error fetching activities:", error);
         return;
       }
 
-      // Map data to match the `activities` structure
       const formattedData = data.map((item) => ({
-        id: item.inventory_id, // Unique identifier
-        sections: item.section || "N/A", // Sections or a fallback
-        expiryDate: item.expiry_date || "No expiry date", // Expiry date or fallback
+        id: item.inventory_id,
+        sections: item.section || "N/A",
+        expiryDate: item.expiry_date || "No expiry date",
       }));
 
       setActivities(formattedData);
@@ -76,6 +68,7 @@ const Inventory = () => {
 
     fetchActivitiesByShopId();
   }, []);
+
   return (
     <SidebarProvider className="bg-gray-50">
       <div className="flex min-h-screen w-full">
@@ -89,55 +82,47 @@ const Inventory = () => {
           </header>
 
           <main className="flex-1 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-2xl font-bold text-gray-900">All Events</div>
-              <div className="flex items-center gap-2">
-                <Drawer>
-                  <DrawerTrigger asChild>
-                    <Button variant="outline" size="sm" className="h-8 gap-1">
-                      Open
-                    </Button>
-                  </DrawerTrigger>
-                  <DrawerContent>
-                    <CardWithForm />
-                  </DrawerContent>
-                </Drawer>
-
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="sm" className="h-8 gap-1">
-                      <ListFilter className="h-3.5 w-3.5" />
-                      <span className="sr-only sm:not-sr-only">Filter</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Filter by</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuCheckboxItem checked>Active</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>Archived</DropdownMenuCheckboxItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            </div>
-
             <Card className="border rounded-lg shadow-sm">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">
-                  All Events
-                </CardTitle>
-                <CardDescription className="text-gray-500">
-                  Go through new and upcoming events.
-                </CardDescription>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-[30px] font-bold text-gray-900">
+                      Inventories
+                    </CardTitle>
+                    <CardDescription className="text-s text-gray-600 mt-1">
+                      Go through all your inventories at one place.
+                    </CardDescription>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Drawer>
+                      <DrawerTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-8 gap-1"
+                        >
+                          Add inventories
+                        </Button>
+                      </DrawerTrigger>
+                      <DrawerContent>
+                        <CardWithForm />
+                      </DrawerContent>
+                    </Drawer>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow className="border-gray-200">
-                      <TableHead className="text-gray-600">Inventory ID</TableHead>
+                      <TableHead className="text-gray-600">
+                        Inventory ID
+                      </TableHead>
                       <TableHead className="text-gray-600">Title</TableHead>
                       <TableHead className="text-gray-600">Sections</TableHead>
-                      <TableHead className="text-gray-600">Expiry Date</TableHead>
+                      <TableHead className="text-gray-600">
+                        Expiry Date
+                      </TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -167,7 +152,9 @@ const Inventory = () => {
                               <DropdownMenuItem>View</DropdownMenuItem>
                               <DropdownMenuItem>Edit</DropdownMenuItem>
                               <DropdownMenuSeparator />
-                              <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
+                              <DropdownMenuItem className="text-red-600">
+                                Delete
+                              </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </TableCell>

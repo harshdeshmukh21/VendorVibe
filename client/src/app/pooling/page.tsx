@@ -55,7 +55,13 @@ import {
 import { AppSidebar } from "@/components/app-sidebar";
 import { Input } from "@/components/ui/input";
 
-const ModifiedTableDemo = () => {
+const Dashboard = () => {
+  const router = useRouter();
+
+  const handleAcceptRequests = () => {
+    router.push("/poolingout");
+  };
+
   const Requests = [
     {
       shop_ID: "1",
@@ -72,81 +78,87 @@ const ModifiedTableDemo = () => {
   ];
 
   return (
-    <Table>
-      <TableHeader>
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-gray-900">
-            Inventories
-          </CardTitle>
-          <CardDescription className="text-gray-500">
-            Go through all your inventories at one place.
-          </CardDescription>
-        </CardHeader>
-        <TableRow>
-          <TableHead>Shop_ID</TableHead>
-          <TableHead>Inventory name</TableHead>
-          <TableHead>Price per unit</TableHead>
-          <TableHead>Quantity</TableHead>
-          <TableHead>Action</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {Requests.map((shop_ID) => (
-          <TableRow key={shop_ID.shop_ID}>
-            <TableCell className="font-medium">{shop_ID.shop_ID}</TableCell>
-            <TableCell>{shop_ID.InventoryName}</TableCell>
-            <TableCell>{shop_ID.PricePerUnit}</TableCell>
-            <TableCell>{shop_ID.Quantity}</TableCell>
-            <TableCell>
-              <Button variant="outline" size="sm">
-                Create Request
-              </Button>
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
-};
-
-const Dashboard = () => {
-  const router = useRouter();
-
-  const handleAcceptRequests = () => {
-    router.push("/poolingout"); // Updated to route to /poolingout
-  };
-
-  return (
     <SidebarProvider className="bg-gray-50">
       <div className="flex min-h-screen w-full">
         <AppSidebar />
         <div className="flex-1 flex flex-col">
-          <header className="sticky top-0 z-30 flex h-16 items-center border-b bg-white px-6">
-            <div className="flex w-full items-center justify-between">
-              <div className="flex items-center gap-4">
-                <SidebarTrigger />
-                {/* <div className="text-lg font-semibold text-gray-800">
-                  Inventory Requests
-                </div> */}
-              </div>
-              <div className="flex-1 flex justify-end items-center gap-4 mx-4">
-                <TopNavbar />
-              </div>
+          <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-white px-4 sm:px-6">
+            <div className="flex items-center gap-4">
+              <SidebarTrigger />
             </div>
+            <TopNavbar />
           </header>
+
           <main className="flex-1 p-6">
-            <div className="flex justify-end mb-4">
-              <Button
-                variant="default"
-                className="bg-slate-600 hover:bg-slate-700"
-                onClick={handleAcceptRequests}
-              >
-                Accept requests
-              </Button>
-            </div>
-            <div className="rounded-lg border bg-white p-4 flex flex-row">
-              <ModifiedTableDemo />
-            </div>
+            <Card className="border rounded-lg shadow-sm">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-2xl font-bold text-gray-900">
+                      Pool Inventories
+                    </CardTitle>
+                    <CardDescription className="text-s text-gray-600 mt-1">
+                      We provide this substantial feature to pool your
+                      inventories with your local vendors, so that you never run
+                      out of stock!
+                    </CardDescription>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      className="bg-slate-600 hover:bg-slate-700"
+                      onClick={handleAcceptRequests}
+                    >
+                      Accept Pool Requests
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-gray-600">Shop_ID</TableHead>
+                      <TableHead className="text-gray-600">
+                        Inventory name
+                      </TableHead>
+                      <TableHead className="text-gray-600">
+                        Price per unit
+                      </TableHead>
+                      <TableHead className="text-gray-600">Quantity</TableHead>
+                      <TableHead className="text-gray-600">Action</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Requests.map((shop_ID) => (
+                      <TableRow
+                        key={shop_ID.shop_ID}
+                        className="border-gray-200"
+                      >
+                        <TableCell className="font-medium text-gray-900">
+                          {shop_ID.shop_ID}
+                        </TableCell>
+                        <TableCell className="text-gray-600">
+                          {shop_ID.InventoryName}
+                        </TableCell>
+                        <TableCell className="text-gray-600">
+                          {shop_ID.PricePerUnit}
+                        </TableCell>
+                        <TableCell className="text-gray-600">
+                          {shop_ID.Quantity}
+                        </TableCell>
+                        <TableCell>
+                          <Button variant="outline" size="sm">
+                            Create Request
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
           </main>
         </div>
       </div>
