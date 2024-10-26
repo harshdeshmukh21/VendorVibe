@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 "use client";
 import * as React from "react";
 import { useRouter } from "next/navigation";
@@ -24,7 +23,6 @@ import { supabase } from "../../../lib/SupabaseClient";
 import { useUser } from "@/app/context/UserContext";
 
 interface FormData {
-
   section: string;
   quantity: string;
   purchasePrice: string;
@@ -36,7 +34,6 @@ export default function CardWithForm() {
   const router = useRouter();
   const { shopId } = useUser();
   const [formData, setFormData] = React.useState<FormData>({
-
     section: "",
     quantity: "",
     purchasePrice: "",
@@ -61,40 +58,39 @@ export default function CardWithForm() {
   };
 
   const validateFormData = () => {
-
     if (!formData.section) {
-      throw new Error('Please select a section');
+      throw new Error("Please select a section");
     }
     if (!formData.quantity || Number(formData.quantity) <= 0) {
-      throw new Error('Please enter a valid quantity');
+      throw new Error("Please enter a valid quantity");
     }
     if (!formData.purchasePrice || Number(formData.purchasePrice) <= 0) {
-      throw new Error('Please enter a valid purchase price');
+      throw new Error("Please enter a valid purchase price");
     }
     if (!formData.sellingPrice || Number(formData.sellingPrice) <= 0) {
-      throw new Error('Please enter a valid selling price');
+      throw new Error("Please enter a valid selling price");
     }
     if (!formData.expiryDate) {
-      throw new Error('Please enter an expiry date');
+      throw new Error("Please enter an expiry date");
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log('📝 Starting inventory submission process...');
+    console.log("📝 Starting inventory submission process...");
 
     try {
       // Validate shop ID
       if (!shopId) {
-        console.error('❌ Shop ID missing', { shopId });
-        throw new Error('Shop ID not found. Please try again later.');
+        console.error("❌ Shop ID missing", { shopId });
+        throw new Error("Shop ID not found. Please try again later.");
       }
-      console.log('🏪 Shop ID verified:', shopId);
+      console.log("🏪 Shop ID verified:", shopId);
 
       // Validate form data
       validateFormData();
-      console.log('✅ Form data validated:', formData);
+      console.log("✅ Form data validated:", formData);
 
       // Prepare inventory data
       const inventoryData = {
@@ -105,28 +101,28 @@ export default function CardWithForm() {
         expiry_date: formData.expiryDate,
         section: formData.section,
         sharable: true, // Default value
-        last_updated: new Date().toISOString()
+        last_updated: new Date().toISOString(),
       };
-      console.log('📦 Prepared inventory data:', inventoryData);
+      console.log("📦 Prepared inventory data:", inventoryData);
 
       // Insert into Supabase
       const { data, error } = await supabase
-        .from('Inventory')
+        .from("Inventory")
         .insert([inventoryData])
         .select();
 
       if (error) {
-        console.error('❌ Supabase Error:', {
+        console.error("❌ Supabase Error:", {
           message: error.message,
           details: error.details,
           hint: error.hint,
-          code: error.code
+          code: error.code,
         });
         throw error;
       }
 
-      console.log('✅ Inventory added successfully:', data);
-      alert('Inventory item added successfully!');
+      console.log("✅ Inventory added successfully:", data);
+      alert("Inventory item added successfully!");
 
       // Reset form
       setFormData({
@@ -138,26 +134,25 @@ export default function CardWithForm() {
       });
 
       router.push("/dashboard");
-
     } catch (error) {
       console.error("❌ Detailed Error:", {
         error,
-        type: error instanceof Error ? 'Error instance' : typeof error,
-        message: error instanceof Error ? error.message : 'Unknown error',
-        stack: error instanceof Error ? error.stack : undefined
+        type: error instanceof Error ? "Error instance" : typeof error,
+        message: error instanceof Error ? error.message : "Unknown error",
+        stack: error instanceof Error ? error.stack : undefined,
       });
 
-      let errorMessage = 'An unknown error occurred.';
+      let errorMessage = "An unknown error occurred.";
       if (error instanceof Error) {
         errorMessage = error.message;
-      } else if (typeof error === 'object' && error !== null) {
+      } else if (typeof error === "object" && error !== null) {
         errorMessage = JSON.stringify(error);
       }
 
-      alert('Failed to add inventory item: ' + errorMessage);
+      alert("Failed to add inventory item: " + errorMessage);
     } finally {
       setIsSubmitting(false);
-      console.log('🏁 Submission process completed');
+      console.log("🏁 Submission process completed");
     }
   };
 
@@ -173,8 +168,6 @@ export default function CardWithForm() {
         <form onSubmit={handleSubmit}>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col gap-2 space-y-1.5">
-
-
               <Label htmlFor="section">Select section</Label>
               <Select onValueChange={handleSectionChange} required>
                 <SelectTrigger id="section">
@@ -239,21 +232,20 @@ export default function CardWithForm() {
               variant="outline"
               type="reset"
               disabled={isSubmitting}
-              onClick={() => setFormData({
-                section: "",
-                quantity: "",
-                purchasePrice: "",
-                sellingPrice: "",
-                expiryDate: "",
-              })}
+              onClick={() =>
+                setFormData({
+                  section: "",
+                  quantity: "",
+                  purchasePrice: "",
+                  sellingPrice: "",
+                  expiryDate: "",
+                })
+              }
             >
               Cancel
             </Button>
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Deploying...' : 'Deploy'}
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Deploying..." : "Deploy"}
             </Button>
           </CardFooter>
         </form>
@@ -261,5 +253,3 @@ export default function CardWithForm() {
     </Card>
   );
 }
-=======
->>>>>>> Stashed changes
