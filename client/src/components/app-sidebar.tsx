@@ -40,8 +40,8 @@ const items = [
     icon: HeartHandshake,
   },
   {
-    title: "Delivery",
-    url: "/delivery",
+    title: "Pooling",
+    url: "/pooling",
     icon: Truck,
   },
   {

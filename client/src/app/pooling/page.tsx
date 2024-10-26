@@ -55,41 +55,41 @@ import {
 import { AppSidebar } from "@/components/app-sidebar";
 import { Input } from "@/components/ui/input";
 
-  const ModifiedTableDemo = () => {
-    const Requests = [
-      {
-        shop_ID: "1",
-        InventoryName: "shop1",
-        PricePerUnit: "Rs.500",
-        Quantity: "50",
-      },
-      {
-          shop_ID: "3",
-          InventoryName: "shop3",
-          PricePerUnit: "Rs.550",
-          Quantity: "75",
-      },
-    ];
-  
-    return (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Shop_ID</TableHead>
-            <TableHead>Inventory name</TableHead>
-            <TableHead>Price per unit</TableHead>
-            <TableHead>Quantity</TableHead>
-            <TableHead>Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {Requests.map((shop_ID) => (
-            <TableRow key={shop_ID.shop_ID}>
-              <TableCell className="font-medium">{shop_ID.shop_ID}</TableCell>
-              <TableCell>{shop_ID.InventoryName}</TableCell>
-              <TableCell>{shop_ID.PricePerUnit}</TableCell>
-              <TableCell>{shop_ID.Quantity}</TableCell>
-              <TableCell>
+const ModifiedTableDemo = () => {
+  const Requests = [
+    {
+      shop_ID: "1",
+      InventoryName: "shop1",
+      PricePerUnit: "Rs.500",
+      Quantity: "50",
+    },
+    {
+      shop_ID: "3",
+      InventoryName: "shop3",
+      PricePerUnit: "Rs.550",
+      Quantity: "75",
+    },
+  ];
+
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Shop_ID</TableHead>
+          <TableHead>Inventory name</TableHead>
+          <TableHead>Price per unit</TableHead>
+          <TableHead>Quantity</TableHead>
+          <TableHead>Action</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {Requests.map((shop_ID) => (
+          <TableRow key={shop_ID.shop_ID}>
+            <TableCell className="font-medium">{shop_ID.shop_ID}</TableCell>
+            <TableCell>{shop_ID.InventoryName}</TableCell>
+            <TableCell>{shop_ID.PricePerUnit}</TableCell>
+            <TableCell>{shop_ID.Quantity}</TableCell>
+            <TableCell>
               <Button variant="outline" size="sm">
                 Create Request
               </Button>
@@ -105,7 +105,7 @@ const Dashboard = () => {
   const router = useRouter();
 
   const handleAcceptRequests = () => {
-    router.push('/poolingout'); // Updated to route to /poolingout
+    router.push("/poolingout"); // Updated to route to /poolingout
   };
 
   return (
@@ -129,8 +129,8 @@ const Dashboard = () => {
           <main className="flex-1 p-6">
             <div className="rounded-lg border bg-white p-4">
               <div className="flex justify-end mb-4">
-                <Button 
-                  variant="default" 
+                <Button
+                  variant="default"
                   className="bg-slate-600 hover:bg-slate-700"
                   onClick={handleAcceptRequests}
                 >
