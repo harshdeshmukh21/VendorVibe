@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 "use client";
 import * as React from "react";
 import { useRouter } from "next/navigation";
@@ -260,3 +261,5 @@ export default function CardWithForm() {
     </Card>
   );
 }
+=======
+>>>>>>> Stashed changes
