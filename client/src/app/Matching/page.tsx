@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,13 +10,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import TopNavbar from "@/components/navbar";
-import { FormforZone } from "@/components/ui/forzone";
 import { supabase } from "../../../lib/SupabaseClient";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const ModifiedTableDemo = () => {
   const [zone, setZone] = useState("");
@@ -26,6 +32,18 @@ const ModifiedTableDemo = () => {
   const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
   const genAI = new GoogleGenerativeAI(apiKey || "");
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  const getGeminiResponse = async (prompt: string) => {
+    try {
+      const result = await model.generateContent(prompt);
+      const responseText = result.response.text();
+      // Remove asterisks from the response
+      return responseText.replace(/\*/g, "");
+    } catch (error) {
+      console.error("Error generating Gemini response:", error);
+      return "An error occurred while generating the response.";
+    }
+  };
 
   const handleFetchShops = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,11 +76,11 @@ const ModifiedTableDemo = () => {
         const shopIdsFromInventory = inventoryData.map((item) => item.shop_id);
         setShopIds(shopIdsFromInventory);
 
-        const prompt = `Here are the shop IDs for zone "${zone}": ${shopIdsFromInventory.join(
+        const prompt = `Zone ${zone} inventory: ${shopIdsFromInventory.join(
           ", "
-        )}.`;
-        const result = await model.generateContent(prompt);
-        setResponse(result.response.text());
+        )}, don't ask questions or say anything, just quiet.`;
+        const geminiResponse = await getGeminiResponse(prompt);
+        setResponse(geminiResponse);
       } else {
         setResponse(`No shops found in zone "${zone}".`);
         setShopIds([]);
@@ -99,8 +117,8 @@ const ModifiedTableDemo = () => {
         setBestShop(bestShopData.shop_id);
 
         const prompt = `The shop with the highest quantity available in zone "${zone}" is shop ID ${bestShopData.shop_id} with a quantity of ${bestShopData.quantity_available}.`;
-        const result = await model.generateContent(prompt);
-        setResponse(result.response.text());
+        const geminiResponse = await getGeminiResponse(prompt);
+        setResponse(geminiResponse);
       } else {
         setResponse(`No shops found in zone "${zone}".`);
         setBestShop(null);
@@ -113,15 +131,24 @@ const ModifiedTableDemo = () => {
 
   return (
     <div className="space-y-6">
-      <h1>Shop Information</h1>
+      <div>
+        <CardTitle className="text-[30px] font-bold text-gray-900">
+          Smart Match
+        </CardTitle>
+        <CardDescription className="text-s text-gray-600 mt-1">
+          We provide this substantial feature to pool your inventories with your
+          local vendors, so that you never run out of stock!
+        </CardDescription>
+      </div>
       <form onSubmit={handleFetchShops}>
         <div>
-          <label htmlFor="zone">Zone:</label>
+          <label htmlFor="zone">Zone: </label>
           <select
             id="zone"
             value={zone}
             onChange={(e) => setZone(e.target.value)}
             required
+            className="w-32 h-8 border border-gray-300 rounded-md p-1"
           >
             <option value="">Select a zone</option>
             {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"].map((z) => (
@@ -131,10 +158,12 @@ const ModifiedTableDemo = () => {
             ))}
           </select>
         </div>
-        <Button type="submit">Submit</Button>
-        <Button type="button" onClick={handleBestSearch}>
-          Best Search
-        </Button>
+        <div className="flex flex-row gap-4 mt-[20px]">
+          <Button type="submit">Submit</Button>
+          <Button type="button" onClick={handleBestSearch}>
+            Best Search
+          </Button>
+        </div>
       </form>
 
       {response && (
@@ -172,6 +201,7 @@ const Matching = () => {
         <AppSidebar />
         <div className="flex-1 flex flex-col">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-white px-4 sm:px-6">
+            <SidebarTrigger />
             <TopNavbar />
           </header>
           <main className="flex-1 p-6 space-y-6">
@@ -181,7 +211,6 @@ const Matching = () => {
           </main>
         </div>
       </div>
-      <FormforZone />
     </SidebarProvider>
   );
 };

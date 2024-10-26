@@ -94,7 +94,7 @@ const Dashboard = () => {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-2xl font-bold text-gray-900">
+                    <CardTitle className="text-[30px] font-bold text-gray-900">
                       Pool Inventories
                     </CardTitle>
                     <CardDescription className="text-s text-gray-600 mt-1">

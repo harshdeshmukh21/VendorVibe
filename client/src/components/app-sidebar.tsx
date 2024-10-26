@@ -45,11 +45,11 @@ const items = [
     url: "/pooling",
     icon: Blend,
   },
-  {
-    title: "Analytics",
-    url: "/analytics",
-    icon: ChartNoAxesCombined,
-  },
+  // {
+  //   title: "Analytics",
+  //   url: "/analytics",
+  //   icon: ChartNoAxesCombined,
+  // },
 ];
 
 export function AppSidebar() {
