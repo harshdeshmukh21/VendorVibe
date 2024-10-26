@@ -9,18 +9,19 @@ const TopNavbar = () => {
   const pathname = usePathname();
 
   const getComponentName = (path: string) => {
-    const routes = {
+    const routes: { [key: string]: string } = {
       "/dashboard": "Dashboard",
       "/inventory": "Inventory",
       "/community": "Community",
       "/pooling": "Pooling",
       "/analytics": "Analytics",
       "/": "Home",
+      "/poolingout": "Pooling > Pooling Out",
     };
 
     // Remove trailing slash if present
     const normalizedPath = path.endsWith("/") ? path.slice(0, -1) : path;
-    return routes[normalizedPath] || "Not Found";
+    return routes[normalizedPath as keyof typeof routes] || "Not Found";
   };
 
   return (

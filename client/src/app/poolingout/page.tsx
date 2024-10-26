@@ -1,26 +1,8 @@
 "use client";
-
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, ListFilter, Users2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import TopNavbar from "@/components/navbar";
-import {
-  Calendar,
-  Home,
-  Inbox,
-  Search,
-  Settings,
-  Package,
-  HeartHandshake,
-  Blend,
-  Truck,
-  ArrowRightLeft,
-  ChartNoAxesCombined,
-  Sparkles,
-  MessageSquareText,
-} from "lucide-react";
 import {
   Card,
   CardContent,
@@ -30,15 +12,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Table,
   TableBody,
   TableCell,
@@ -46,28 +19,28 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   SidebarProvider,
   SidebarTrigger,
   Sidebar,
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { Input } from "@/components/ui/input";
 
-const ModifiedTableDemo = () => {
-  const Requests = [
+const PoolingTableDemo = () => {
+  const poolingRequests = [
     {
-      shop_ID: "1",
-      InventoryName: "shop1",
-      PricePerUnit: "Rs.500",
-      Quantity: "50",
+      request_ID: "1",
+      shopName: "Shop A",
+      inventoryName: "Item 1",
+      quantity: "100",
+      status: "Pending",
     },
     {
-        shop_ID: "3",
-        InventoryName: "shop3",
-        PricePerUnit: "Rs.550",
-        Quantity: "75",
+      request_ID: "2",
+      shopName: "Shop B",
+      inventoryName: "Item 2",
+      quantity: "150",
+      status: "Pending",
     },
   ];
 
@@ -75,20 +48,35 @@ const ModifiedTableDemo = () => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Shop_ID</TableHead>
-          <TableHead>Inventory name</TableHead>
+          <TableHead>Request ID</TableHead>
+          <TableHead>Shop Name</TableHead>
+          <TableHead>Inventory Name</TableHead>
+          <TableHead>Quantity</TableHead>
+          <TableHead>Status</TableHead>
           <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {Requests.map((shop_ID) => (
-          <TableRow key={shop_ID.shop_ID}>
-            <TableCell className="font-medium">{shop_ID.shop_ID}</TableCell>
-            <TableCell>{shop_ID.InventoryName}</TableCell>
+        {poolingRequests.map((request) => (
+          <TableRow key={request.request_ID}>
+            <TableCell className="font-medium">{request.request_ID}</TableCell>
+            <TableCell>{request.shopName}</TableCell>
+            <TableCell>{request.inventoryName}</TableCell>
+            <TableCell>{request.quantity}</TableCell>
+            <TableCell>{request.status}</TableCell>
             <TableCell>
-              <Button variant="outline" size="sm">
-                Accept Requests
-              </Button>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm">
+                  Accept
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-red-50 hover:bg-red-100 text-red-600"
+                >
+                  Reject
+                </Button>
+              </div>
             </TableCell>
           </TableRow>
         ))}
@@ -97,11 +85,11 @@ const ModifiedTableDemo = () => {
   );
 };
 
-const Dashboard = () => {
+const PoolingDashboard = () => {
   const router = useRouter();
 
-  const handleCreateRequests = () => {
-    router.push('/pooling'); // Updated to route to /poolingout
+  const handleViewInventory = () => {
+    router.push("/pooling");
   };
 
   return (
@@ -113,9 +101,6 @@ const Dashboard = () => {
             <div className="flex w-full items-center justify-between">
               <div className="flex items-center gap-4">
                 <SidebarTrigger />
-                <div className="text-lg font-semibold text-gray-800">
-                  Inventory Requests
-                </div>
               </div>
               <div className="flex-1 flex justify-end items-center gap-4 mx-4">
                 <TopNavbar />
@@ -124,16 +109,30 @@ const Dashboard = () => {
           </header>
           <main className="flex-1 p-6">
             <div className="rounded-lg border bg-white p-4">
-              <div className="flex justify-end mb-4">
-                <Button 
-                  variant="default" 
+              <div className="flex justify-between mb-4">
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    className="bg-white hover:bg-gray-50"
+                  >
+                    Filter
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="bg-white hover:bg-gray-50"
+                  >
+                    Sort
+                  </Button>
+                </div>
+                <Button
+                  variant="default"
                   className="bg-slate-600 hover:bg-slate-700"
-                  onClick={handleCreateRequests}
+                  onClick={handleViewInventory}
                 >
-                  Create requests
+                  Send Pool Request
                 </Button>
               </div>
-              <ModifiedTableDemo />
+              <PoolingTableDemo />
             </div>
           </main>
         </div>
@@ -142,4 +141,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default PoolingDashboard;
