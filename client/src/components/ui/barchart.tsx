@@ -1,5 +1,4 @@
 "use client";
-
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 const chartData = [
@@ -14,11 +13,11 @@ const chartData = [
 const chartConfig = {
   desktop: {
     label: "Desktop",
-    color: "0 0% 45.1%", // Teal color for desktop data
+    color: "#404040", // Darker gray for desktop data
   },
   mobile: {
     label: "Mobile",
-    color: "#859F3D", // Light blue color for mobile data
+    color: "#808080", // Lighter gray for mobile data
   },
 };
 
@@ -26,13 +25,14 @@ export function BarComponent() {
   return (
     <div className="min-h-[300px] mt-20 w-full">
       <BarChart data={chartData} width={300} height={200}>
-        <CartesianGrid vertical={false} />
+        <CartesianGrid vertical={false} stroke="#e5e5e5" />
         <XAxis
           dataKey="month"
           tickLine={false}
           tickMargin={10}
           axisLine={false}
           tickFormatter={(value) => value.slice(0, 3)}
+          stroke="#666666"
         />
         <Bar dataKey="desktop" fill={chartConfig.desktop.color} radius={4} />
         <Bar dataKey="mobile" fill={chartConfig.mobile.color} radius={4} />
@@ -40,3 +40,5 @@ export function BarComponent() {
     </div>
   );
 }
+
+export default BarComponent;

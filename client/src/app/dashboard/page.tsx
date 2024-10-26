@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ListFilter, Users2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
 import {
   Calendar,
   Home,
@@ -36,15 +35,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
   SidebarProvider,
   SidebarTrigger,
   Sidebar,
@@ -53,6 +43,9 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { Input } from "@/components/ui/input";
 import { CarouselDemo } from "@/components/ui/Graphcarousel";
 import TopNavbar from "@/components/navbar";
+import { BarComponent } from "@/components/ui/barchart";
+import { LineComponent } from "@/components/ui/Linechart";
+import { PieComponent } from "@/components/ui/Piechart";
 
 const Dashboard = () => {
   return (
@@ -114,84 +107,48 @@ const Dashboard = () => {
                   <CardFooter></CardFooter>
                 </Card>
               </div>
-              <Tabs defaultValue="week">
-                <div className="flex items-center">
-                  <TabsList className="bg-gray-100 rounded-md">
-                    <TabsTrigger
-                      value="week"
-                      className="data-[state=active]:bg-white data-[state=active]:text-gray-900"
-                    >
-                      Week
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="month"
-                      className="data-[state=active]:bg-white data-[state=active]:text-gray-900"
-                    >
-                      Month
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="year"
-                      className="data-[state=active]:bg-white data-[state=active]:text-gray-900"
-                    >
-                      Year
-                    </TabsTrigger>
-                  </TabsList>
-                  <div className="ml-auto flex items-center gap-2">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button className="h-8 gap-1 bg-slate-900 text-white">
-                          <ListFilter className="h-3.5 w-3.5" />
-                          <span className="sr-only sm:not-sr-only">Filter</span>
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="bg-white">
-                        <DropdownMenuLabel>Filter by</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuCheckboxItem checked>
-                          Fulfilled
-                        </DropdownMenuCheckboxItem>
-                        <DropdownMenuCheckboxItem>
-                          Declined
-                        </DropdownMenuCheckboxItem>
-                        <DropdownMenuCheckboxItem>
-                          Refunded
-                        </DropdownMenuCheckboxItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                </div>
-                <TabsContent value="week">
-                  <Card className="bg-gray-50 border-gray-200 rounded-md h-[55vh] overflow-scroll">
-                    <CardHeader className="px-7">
-                      <CardTitle className="text-gray-900 text-[30px]">
-                        Analytics
-                      </CardTitle>
-                      <CardDescription className="text-gray-600">
-                        List of our most active planters.
-                      </CardDescription>
+
+              {/* Single Analytics Card */}
+              <Card className="bg-gray-50 border-gray-200 rounded-md h-[55vh]">
+                <CardHeader className="px-7">
+                  <CardTitle className="text-gray-900 text-[30px] mt-4">
+                    Analytics
+                  </CardTitle>
+                  <CardDescription className="text-gray-600">
+                    List of our most active planters.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex flex-row gap-6">
+                  <Card className="bg-gray-50 border-gray-200 rounded-md t-4 h-[33vh] w-[23vw] ">
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-4xl text-gray-900 p-2"></CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <CarouselDemo />
+                    <CardContent className="mt-[-100px] ml-[-10px]">
+                      <BarComponent></BarComponent>
                     </CardContent>
+                    <CardFooter></CardFooter>
                   </Card>
-                </TabsContent>
-              </Tabs>
+                  <Card className="bg-gray-50 border-gray-200 rounded-md  ">
+                    <PieComponent></PieComponent>
+                  </Card>
+                </CardContent>
+              </Card>
             </div>
             <div>
-              <Card className="overflow-hidden bg-gray-50 border-gray-200 rounded-md h-[92.5vh]">
+              <Card className="overflow-hidden bg-gray-50 border-gray-200 rounded-md h-[86.2vh]">
                 <CardHeader className="flex flex-row items-start border-gray-100">
                   <div className="grid gap-0.5 w-full">
                     <CardTitle className="text-gray-900 text-[30px]">
                       Community
                     </CardTitle>
 
-                    <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[24vh]">
+                    <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-8 h-[21vh]">
                       <CardHeader className="pb-2">
                         <CardDescription className="text-gray-600 font-semibold">
                           Smart Match
                         </CardDescription>
-                        <CardTitle className="text-4xl text-gray-900 p-2">
-                          <HeartHandshake size={48} />
+                        <CardTitle className="text-4xl text-gray-900">
+                          <HeartHandshake size={44} />
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
@@ -203,13 +160,13 @@ const Dashboard = () => {
                       <CardFooter></CardFooter>
                     </Card>
 
-                    <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[24vh]">
+                    <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[21vh]">
                       <CardHeader className="pb-2">
                         <CardDescription className="text-gray-600 font-semibold">
                           Active Shares
                         </CardDescription>
-                        <CardTitle className="text-4xl text-gray-900 p-2">
-                          <ArrowRightLeft size={48} />
+                        <CardTitle className="text-4xl text-gray-900">
+                          <ArrowRightLeft size={44} />
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
@@ -220,13 +177,13 @@ const Dashboard = () => {
                       </CardContent>
                       <CardFooter></CardFooter>
                     </Card>
-                    <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[24vh]">
+                    <Card className="bg-gray-50 border-gray-200 rounded-md w-full mt-4 h-[21vh]">
                       <CardHeader className="pb-2">
                         <CardDescription className="text-gray-600 font-semibold">
                           Messages
                         </CardDescription>
-                        <CardTitle className="text-4xl text-gray-900 p-2">
-                          <MessageSquareText size={48} />
+                        <CardTitle className="text-4xl text-gray-900">
+                          <MessageSquareText size={44} />
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
@@ -243,21 +200,6 @@ const Dashboard = () => {
                   {/* Add your recent updates content here */}
                 </CardContent>
               </Card>
-              {/* <Card className="overflow-hidden h-[22vh] mt-8  bg-gray-50 border-gray-200 rounded-md">
-                <CardHeader className="flex flex-row items-start">
-                  <div className="grid gap-0.5 w-full">
-                    <CardTitle className="text-gray-900 text-[30px]">
-                      Ask AI
-                    </CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <label className="relative block">
-                    <Input className="pr-10" />
-                    <Sparkles className="absolute right-2 top-1/2 transform -translate-y-1/2" />
-                  </label>
-                </CardContent>
-              </Card> */}
             </div>
           </main>
         </div>
