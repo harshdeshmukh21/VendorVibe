@@ -37,6 +37,8 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import CardWithForm from "@/components/ui/cardwform";
 import { supabase } from "../../../lib/SupabaseClient";
 import { useUser } from "@/app/context/UserContext";
+import Link from "next/link";
+
 
 
 const Inventory = () => {
@@ -74,7 +76,6 @@ const Inventory = () => {
 
     fetchActivitiesByShopId();
   }, []);
-
   return (
     <SidebarProvider className="bg-gray-50">
       <div className="flex min-h-screen w-full">
@@ -143,9 +144,10 @@ const Inventory = () => {
                     {activities.map((activity) => (
                       <TableRow key={activity.id} className="border-gray-200">
                         <TableCell className="font-medium text-gray-900">
-                          {activity.id}
+                          <Link href={`/inventory/${activity.id}`}>
+                            {activity.id}
+                          </Link>
                         </TableCell>
-
                         <TableCell className="text-gray-600">
                           {activity.sections}
                         </TableCell>
