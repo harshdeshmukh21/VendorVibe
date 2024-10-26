@@ -1,6 +1,6 @@
-import * as React from "react";
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card";
+import * as React from "react";
 import {
   Carousel,
   CarouselContent,
@@ -8,26 +8,28 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Component } from "./barchart";
+import { BarComponent } from "./barchart"; // Adjust the path to your BarChart component
+import { LineComponent } from "./Linechart"; // Adjust the path to your LineChart component
+import { PieComponent } from "./Piechart"; // Adjust the path to your PieComponent
 
 export function CarouselDemo() {
   return (
-    <Carousel className="w-full max-w-xs">
-      <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index}>
-            <div className="p-1 pr-0 mr-0">
-              <Card>
-                <CardContent className="flex flex-col items-center justify-center p-2 w-full min-h-[300px]">
-                  <Component />
-                </CardContent>
-              </Card>
-            </div>
+    <div className="relative">
+      <Carousel className="w-full ml-20 max-w-xs">
+        <CarouselContent>
+          <CarouselItem>
+            <BarComponent /> {/* Add your bar chart component */}
           </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+          <CarouselItem>
+            <LineComponent /> {/* Add your line chart component */}
+          </CarouselItem>
+          <CarouselItem>
+            <PieComponent />
+          </CarouselItem>
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    </div>
   );
 }

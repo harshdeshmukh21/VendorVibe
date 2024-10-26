@@ -22,9 +22,9 @@ const chartConfig = {
   },
 };
 
-export function Component() {
+export function BarComponent() {
   return (
-    <div className="min-h-[200px] w-full">
+    <div className="min-h-[300px] mt-20 w-full">
       <BarChart data={chartData} width={300} height={200}>
         <CartesianGrid vertical={false} />
         <XAxis
